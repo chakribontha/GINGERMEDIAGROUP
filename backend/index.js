@@ -7,12 +7,13 @@ const app = express();
 app.use(cors());
 const port = 3000;
 
-// MySQL Connection
+
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "srikanth@123",
-  database: "mydatabase",
+  host: "sql6.freesqldatabase.com",
+  user: "sql6683212",
+  password: "Ysh8z1qKNG",
+  database: "sql6683212",
+  port: 3306,
 });
 
 connection.connect((err) => {
@@ -23,16 +24,16 @@ connection.connect((err) => {
   console.log("Connected to MySQL");
 });
 
-// Middleware
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// Signup Route
 app.post("/signup", (req, res) => {
   const { username, email, password, full_name, birthdate } = req.body;
 
-  const sql = "INSERT INTO users (username, email, password, full_name, birthdate) VALUES (?, ?, ?, ?, ?)";
+  const sql =
+    "INSERT INTO users (username, email, password, full_name, birthdate) VALUES (?, ?, ?, ?, ?)";
   const values = [username, email, password, full_name, birthdate];
 
   connection.query(sql, values, (err, result) => {
@@ -69,8 +70,6 @@ app.post("/signin", (req, res) => {
   });
 });
 
-// Get user details by email Route
-// Get user details by email Route
 app.get("/dashboard/:email", (req, res) => {
   const email = req.params.email;
 
@@ -92,7 +91,7 @@ app.get("/dashboard/:email", (req, res) => {
   });
 });
 
-// Start server
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
